@@ -13,5 +13,5 @@ namespace ParkingGarageManagement.Models
         VIP = 2
 
     }
-    //stri
+    
 }

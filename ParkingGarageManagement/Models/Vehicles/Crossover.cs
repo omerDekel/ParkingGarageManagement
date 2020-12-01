@@ -16,6 +16,7 @@ namespace ParkingGarageManagement.Models
         /// <param name="length"></param>
         public Crossover(string licensePlate, int width, int height, int length)
         {
+            VehicleName = "Crossover";
             LicensePlate = licensePlate;
             Width = width;
             Height = height;

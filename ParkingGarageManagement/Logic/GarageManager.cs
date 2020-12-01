@@ -69,33 +69,30 @@ namespace ParkingGarageManagement.Logic
         /// <param name="vehicle"> vehicle which wants to enter</param>
         /// <param name="rank">rank of the ticket type</param>
         /// <returns>information about the check in result</returns>
-        public CheckInResult CheckIn(CheckInInput input)
+        public CheckInResult CheckIn(Vehicle vehicle,TicketRank rank)
         {            
             int  lot = -1;
-            Vehicle vehicle = vehicleFactory.GetVehicle(input.VehicleType, input.LicensePlateID, int.Parse(input.Width)
-                , int.Parse(input.Height), int.Parse(input.Length));
-            User user = new User(input.Name, input.Phone, input.LicensePlateID);
-            Enum.TryParse(input.TicketType, out TicketRank rank);
-            vehicle.DriverDetails = user;
             enteringVehicles.Add(vehicle);
             TicketType ticketType = ticketTypes[rank];
             //if the ticket type is suitable to the vehicle's data.
             if (ticketType.ticketValidate(vehicle))
             {
                 ParkVehicle(vehicle, ticketType, ref lot);
-                return new CheckInResult(rank, 0, true, lot);
+                return new CheckInResult(rank.ToString(), 0, true, lot,vehicle.VehicleName);
             }
             else
             {
                 return FindMatchingTicket(vehicle, rank);
             }
         }
-        public void CheckOut(string licensePlateID)
+        public bool CheckOut(string licensePlateID)
         {
             if (occupiedLots.ContainsKey(licensePlateID))
             {
                 occupiedLots[licensePlateID].freeLot();
+                return true;
             }
+            return false;
         }
         /// <summary>
         /// /find  where to park the vehicle according to its type and where there's a free lot
@@ -139,7 +136,7 @@ namespace ParkingGarageManagement.Logic
             {
                 rank = TicketRank.Undefined;
             }
-            return new CheckInResult(rank, coresspondTicket.Price - initialCost, false,-1);
+            return new CheckInResult(rank.ToString(), coresspondTicket.Price - initialCost, false,-1,vehicle.VehicleName);
         }
 
     }

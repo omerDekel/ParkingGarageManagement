@@ -1,0 +1,24 @@
+﻿
+.lotContainer{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+}
+
+.lot {
+    border: 1px solid blue;
+    width: 40px;
+    height: 80px;
+    text-align: center;
+    padding-top: 28px;
+}
+
+.occupiedLot {
+    background-color: black;
+    color: antiquewhite;
+}
+
+.freeLot {
+    background-color: antiquewhite;
+    color: black;
+}

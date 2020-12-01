@@ -16,6 +16,7 @@ namespace ParkingGarageManagement.Models
         /// <param name="length"></param>
         public PrivateVehicle(string licensePlate, int width, int height, int length)
         {
+            VehicleName = "Private";
             LicensePlate = licensePlate;
             Width = width;
             Height = height;

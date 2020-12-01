@@ -16,35 +16,49 @@ namespace ParkingGarageManagement.Controllers
     [Route("[controller]")]
     public class GarageController : ControllerBase
     {
-
-
+        const string errorMessage = "Error!";
+        private VehicleFactory vehicleFactory;
         private GarageManager garage;
 
         private void Init()
         {
+            vehicleFactory = new VehicleFactory();
             garage = GarageManager.Instance;
         }
-
         public GarageController()
         {
             Init();
         }
 
         [HttpPost]
-        [Route("/parking/checkin")]
+        [Route("/checkin")]
         public string CheckIn([FromBody] CheckInInput input)
         {
-            CheckInResult ticketInfo = garage.CheckIn(input);
+            if (!input.InputisValid())
+            {
+                return errorMessage;
+            }
+            Vehicle vehicle = vehicleFactory.GetVehicle(input.VehicleType, input.LicensePlateID, int.Parse(input.Width)
+               , int.Parse(input.Height), int.Parse(input.Length));
+            //validate the rank and vehicle type
+            bool rankIsValid = Enum.TryParse(input.TicketType, out TicketRank rank);
+            if (vehicle == null || !rankIsValid)
+            {
+                return errorMessage;
+            }
+            User user = new User(input.Name, input.Phone, input.LicensePlateID);
+            vehicle.DriverDetails = user;
+            CheckInResult ticketInfo = garage.CheckIn(vehicle,rank);
             return System.Text.Json.JsonSerializer.Serialize(ticketInfo);
         }
         [HttpPost]
-        [Route("/parking/checkout/{LicensePlateID}")]
+        [Route("/checkout/{LicensePlateID}")]
         public void CheckOut(string LicensePlateID)
         {
             garage.CheckOut(LicensePlateID);
         }
         [HttpGet]
-        [Route("/parking/getgaragestate")]
+        [Route("/getgaragestate")]
         public string GetGarageState()
         {
             string lotsStr = System.Text.Json.JsonSerializer.Serialize(garage.Lots);

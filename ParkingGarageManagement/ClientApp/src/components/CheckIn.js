@@ -49,7 +49,21 @@ export class CheckIn extends Component {
         // send POST request
         fetch(url, options)
             .then(res => res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                if (res == "Error!") {
+                    alert("Invalid Input!");
+                }
+                if (res.TicketTypeIsSuitable == true) {
+                    alert("The lot for the vehicle is: " + res.Lot);
+                }
+                else if (!res.TicketTypeIsSuitable){
+                    alert("The ticket type is not suitable with the vehicle, you may"
+                        + " trade your ticket to: " + res.MatchingTicketRank + " you should add more " + res.DifferenceCost+"$");
+                }
+                //alert("success")
+                //else
+                //alert("not valid"+ data)
+            });
 
     }
 
@@ -57,57 +71,63 @@ export class CheckIn extends Component {
 
         return (
             <Form onSubmit={this.handleSubmit}>
-                <h1>Hello</h1>
-                <p>Name:</p>
-                <input
+                <FormGroup>
+                    <h1>Hello</h1>
+                    <Label>Name:</Label>
+                <Input
                     type='text'
                     name='username'
                     onChange={this.myChangeHandler}
-                />
-                <p>License Plate ID:</p>
-                <input
+                    />
+                    <Label>License Plate ID:</Label>
+                <Input
                     type='text'
                     name='licensePlateId'
                     onChange={this.myChangeHandler}
-                />
-                <p>Vehicle Type:</p>
-                <input
+                    />
+                    <Label>Vehicle Type:</Label>
+                <Input
                     type='text'
                     name='vehicleType'
                     onChange={this.myChangeHandler}
-                />
-                <p>Vehicle Height:</p>
-                <input
+                    />
+                    <Label>Vehicle Height:</Label>
+                <Input
                     type='text'
                     name='vehicleHeight'
                     onChange={this.myChangeHandler}
-                />
-                <p>Vehicle Width:</p>
-                <input
+                    />
+                    <Label>Vehicle Width:</Label>
+                <Input
                     type='text'
                     name='vehicleWidth'
                     onChange={this.myChangeHandler}
-                />
-                <p>Vehicle Length:</p>
-                <input
+                    />
+                    <Label>Vehicle Length:</Label>
+                <Input
                     type='text'
                     name='vehicleLength'
                     onChange={this.myChangeHandler}
                 />
-                <FormGroup>
-                    <Label for="Phone">Phone</Label>
-                    <Input type="email" name="email" id="phone" placeholder="insert your phone" />
-                </FormGroup>
+                    <Label >Phone</Label>
+                    <Input
+                        type="text"
+                        name="phone"
+                        onChange={this.myChangeHandler}
+                    />
                 <label>
                     Ticket Type
-          <select value={this.state.vehicleType} onChange={this.myChangeHandler}>
-                        <option value="vip">VIP</option>
-                        <option value="value">Value</option>
-                        <option value="regular">Regular</option>
-                    </select>
-                </label>
+                    <Input type="select" name="ticketType" onChange={this.myChangeHandler}>
+                            <option value="VIP">VIP</option>
+                            <option value="Value">Value</option>
+                            <option value="Regular">Regular</option>
+     
+                    </Input>
 
-                <input type="button" value="Submit" onClick={this.handleSubmit} />
+                </label>
+                </FormGroup>
+
+                <Button color="primary" onClick={this.handleSubmit}>Submit</Button>
             </Form>
         );
   }

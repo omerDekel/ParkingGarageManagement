@@ -15,6 +15,10 @@ namespace ParkingGarageManagement.Models
         public string Height { get; set; }
         public string Width { get; set; }
         public string Length { get; set; }
-
+        public bool InputisValid()
+        {
+            return !((Name == "") || (LicensePlateID == "") || (TicketType == "") || (VehicleType == "") || (Width == "")
+                || (Height == "") || (Length == ""));
+        }
     }
 }

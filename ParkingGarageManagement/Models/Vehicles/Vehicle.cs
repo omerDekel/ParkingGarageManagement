@@ -13,6 +13,7 @@ namespace ParkingGarageManagement.Models
         private int height;
         private int length;
         private User driverDetails;
+        public string VehicleName { get; set; }
         public string LicensePlate { get => licensePlate; set => licensePlate = value; }
         public VehicleClass ClassType { get => classType; set => classType = value; }
         public int Width { get => width; set => width = value; }
