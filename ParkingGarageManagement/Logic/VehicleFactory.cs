@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ParkingGarageManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ParkingGarageManagement.Models
+namespace ParkingGarageManagement.Logic
 {
     public class VehicleFactory
     {

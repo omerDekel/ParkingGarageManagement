@@ -8,20 +8,21 @@ using Newtonsoft.Json;
 using System.Text.Json;
 using Newtonsoft.Json.Linq;
 using ParkingGarageManagement.Models;
+using ParkingGarageManagement.Logic;
 
 namespace ParkingGarageManagement.Controllers
-{
+{    
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class GarageController : ControllerBase
     {
-        private VehicleFactory vehicleFactory;
 
-        private GarageModel garage = GarageModel.Instance;
+
+        private GarageManager garage;
 
         private void Init()
         {
-            this.vehicleFactory = new VehicleFactory();
+            garage = GarageManager.Instance;
         }
 
         public GarageController()
@@ -30,25 +31,20 @@ namespace ParkingGarageManagement.Controllers
         }
 
         [HttpPost]
-        [Route("/checkin")]
+        [Route("/parking/checkin")]
         public string CheckIn([FromBody] CheckInInput input)
         {
-            Vehicle vehicle = vehicleFactory.GetVehicle(input.VehicleType,input.LicensePlateID,int.Parse(input.Width)
-                ,int.Parse(input.Height),int.Parse(input.Length));
-            User user = new User(input.Name, input.Phone, input.LicensePlateID);
-            Enum.TryParse(input.TicketType, out TicketRank rank);
-            vehicle.DriverDetails = user;
-            CheckInResult ticketInfo = garage.CheckIn(vehicle,rank);
+            CheckInResult ticketInfo = garage.CheckIn(input);
             return System.Text.Json.JsonSerializer.Serialize(ticketInfo);
         }
         [HttpPost]
-        [Route("/checkout/{LicensePlateID}")]
+        [Route("/parking/checkout/{LicensePlateID}")]
         public void CheckOut(string LicensePlateID)
         {
             garage.CheckOut(LicensePlateID);
         }
         [HttpGet]
-        [Route("/getgaragestate")]
+        [Route("/parking/getgaragestate")]
         public string GetGarageState()
         {
             string lotsStr = System.Text.Json.JsonSerializer.Serialize(garage.Lots);

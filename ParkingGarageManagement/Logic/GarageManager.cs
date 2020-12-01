@@ -1,13 +1,15 @@
-﻿using System;
+﻿using ParkingGarageManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ParkingGarageManagement.Models
+namespace ParkingGarageManagement.Logic
 {
-    public sealed class GarageModel
-    {   
-        private static GarageModel instance = null;
+    public sealed class GarageManager
+    {
+        private VehicleFactory vehicleFactory;
+        private static GarageManager instance = null;
         //map between license plate id to their lot
         private Dictionary<string, Lot> occupiedLots ;
         //
@@ -15,13 +17,13 @@ namespace ParkingGarageManagement.Models
         //saving data regarding etering vehicles in memory
         private List<Vehicle> enteringVehicles;
         private Dictionary<TicketRank, TicketType> ticketTypes;
-        public static GarageModel Instance
+        public static GarageManager Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new GarageModel();
+                    instance = new GarageManager();
                 }
                 return instance;
 
@@ -30,8 +32,9 @@ namespace ParkingGarageManagement.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        private GarageModel()
+        private GarageManager()
         {
+            this.vehicleFactory = new VehicleFactory();
             enteringVehicles = new List<Vehicle>();
             occupiedLots = new Dictionary<string, Lot>();
             ticketTypes = new Dictionary<TicketRank, TicketType>();
@@ -57,6 +60,7 @@ namespace ParkingGarageManagement.Models
             ticketTypes[TicketRank.Value].AddClass(VehicleClass.B);
             ticketTypes[TicketRank.Regular].AddClass(VehicleClass.A);
         }
+        
         public Lot[] Lots { get => lots; set => lots = value; }
         public List<Vehicle> EnteringVehicles { get => enteringVehicles; set => enteringVehicles = value; }
         /// <summary>
@@ -65,9 +69,14 @@ namespace ParkingGarageManagement.Models
         /// <param name="vehicle"> vehicle which wants to enter</param>
         /// <param name="rank">rank of the ticket type</param>
         /// <returns>information about the check in result</returns>
-        public CheckInResult CheckIn(Vehicle vehicle, TicketRank rank)
-        {
-            int  lot = -1; ;
+        public CheckInResult CheckIn(CheckInInput input)
+        {            
+            int  lot = -1;
+            Vehicle vehicle = vehicleFactory.GetVehicle(input.VehicleType, input.LicensePlateID, int.Parse(input.Width)
+                , int.Parse(input.Height), int.Parse(input.Length));
+            User user = new User(input.Name, input.Phone, input.LicensePlateID);
+            Enum.TryParse(input.TicketType, out TicketRank rank);
+            vehicle.DriverDetails = user;
             enteringVehicles.Add(vehicle);
             TicketType ticketType = ticketTypes[rank];
             //if the ticket type is suitable to the vehicle's data.
