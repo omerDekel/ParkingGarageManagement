@@ -21,9 +21,40 @@ export class CheckIn extends Component {
         let val = event.target.value;
         this.setState({ [nam]: val });
     }
+    checkValidation() {
+        if (this.state.username == "") {
+            alert("Please provide a name");
+            return false;
+        }
+        if (this.state.licensePlateId == "") {
+            alert("Please provide a license plate id");
+            return false;
+        }
+        if (this.state.ticketType == "") {
+            alert("Please provide a ticket type");
+            return false;
+        }
+        if (this.state.vehicleType == "") {
+            alert("Please provide a vehicle type");
+            return false;
+        }
+        if (this.state.vehicleWidth == "") {
+            alert("Please provide a vehicle width");
+            return false;
+        }
+        if (this.state.vehicleLength == "") {
+            alert("Please provide a vehicle length");
+            return false;
+        }
+        if (this.state.vehicleHeight == "") {
+            alert("Please provide a vehicle height");
+            return false;
+        }
+    }
     handleSubmit = () => {
-        //alert('username: ' + this.state.username);
-        const url = 'https://localhost:44354/checkin';
+        // check user input validation
+        if (this.checkValidation()) {
+       const url = 'https://localhost:44354/checkin';
 
         // post body data 
         const user = {
@@ -49,22 +80,21 @@ export class CheckIn extends Component {
         // send POST request
         fetch(url, options)
             .then(res => res.json())
-            .then(res => {
-                if (res == "Error!") {
-                    alert("Invalid Input!");
-                }
+            .then(res => {              
                 if (res.TicketTypeIsSuitable == true) {
                     alert("The lot for the vehicle is: " + res.Lot);
                 }
-                else if (!res.TicketTypeIsSuitable){
+                else if (!res.TicketTypeIsSuitable) {
                     alert("The ticket type is not suitable with the vehicle, you may"
-                        + " trade your ticket to: " + res.MatchingTicketRank + " you should add more " + res.DifferenceCost+"$");
+                        + " trade your ticket to: " + res.MatchingTicketRank + " you should add more " + res.DifferenceCost + "$");
+                } else {
+                    alert(res);
                 }
-                //alert("success")
-                //else
-                //alert("not valid"+ data)
             });
 
+        }
+        //alert('username: ' + this.state.username);
+ 
     }
 
     render() {

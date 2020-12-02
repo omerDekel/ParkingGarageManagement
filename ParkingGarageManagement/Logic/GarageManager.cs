@@ -90,6 +90,7 @@ namespace ParkingGarageManagement.Logic
             if (occupiedLots.ContainsKey(licensePlateID))
             {
                 occupiedLots[licensePlateID].freeLot();
+                occupiedLots.Remove(licensePlateID);
                 return true;
             }
             return false;

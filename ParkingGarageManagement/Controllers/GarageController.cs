@@ -53,9 +53,16 @@ namespace ParkingGarageManagement.Controllers
         }
         [HttpPost]
         [Route("/checkout/{LicensePlateID}")]
-        public void CheckOut(string LicensePlateID)
+        public string CheckOut(string LicensePlateID)
         {
-            garage.CheckOut(LicensePlateID);
+            if (garage.CheckOut(LicensePlateID))
+            {
+                return "Check out succeed";
+            }
+            else
+            {
+                return "Check Out failed.";
+            }
         }
         [HttpGet]
         [Route("/getgaragestate")]

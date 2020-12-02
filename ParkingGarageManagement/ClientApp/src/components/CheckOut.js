@@ -13,25 +13,29 @@ export class CheckOut extends Component {
         this.setState({ [nam]: val });
     }
     handleSubmit = () => {
-        const url = 'https://localhost:44354/checkout';
+        const url = 'https://localhost:44354/checkout/' + this.state.licensePlateId;
 
         // post body data 
-        const user = {
+        /*const user = {
             LicensePlateID: this.state.licensePlateId,
            
-        };
+        };*/
 
         // request options
         const options = {
             method: 'POST',
-            body: JSON.stringify(user),
+            //body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json'
             }
         }
 
         // send POST request
-        fetch(url, options)
+        fetch(url, options).then(res => {
+            
+            alert(res);
+            
+        });
     };
   
 
