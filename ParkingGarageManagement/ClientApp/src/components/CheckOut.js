@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { baseUrl } from '../services/api';
 
 export class CheckOut extends Component {
 
@@ -13,28 +14,30 @@ export class CheckOut extends Component {
         this.setState({ [nam]: val });
     }
     handleSubmit = () => {
-        const url = 'https://localhost:44354/checkout/' + this.state.licensePlateId;
+        const url = baseUrl+'garage/checkout/';
 
         // post body data 
-        /*const user = {
+        const checkoutInput = {
             LicensePlateID: this.state.licensePlateId,
            
-        };*/
+        };
 
         // request options
         const options = {
             method: 'POST',
-            //body: JSON.stringify(user),
+            body: JSON.stringify(checkoutInput),
             headers: {
                 'Content-Type': 'application/json'
             }
         }
 
         // send POST request
-        fetch(url, options).then(res => {
-            
-            alert(res);
-            
+        fetch(url, options).then(res => res.json()).then(res => {           
+            if (res == true) {
+                alert("Thank you.Goodbye!")
+            } else {
+                alert("Check out failed.")
+            }
         });
     };
   

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { baseUrl } from './../services/api';
 import './StyleSheet.css';
 
 export class GarageState extends Component {
@@ -10,7 +11,7 @@ export class GarageState extends Component {
     }
 
     componentDidMount() {
-        fetch('https://localhost:44354/getgaragestate')
+        fetch(baseUrl + 'garage/getgaragestate')
             .then(res =>  res.json() )
             .then(res => this.setState({ garage: res }) );
     }

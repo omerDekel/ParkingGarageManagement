@@ -8,7 +8,6 @@ namespace ParkingGarageManagement.Logic
 {
     public sealed class GarageManager
     {
-        private VehicleFactory vehicleFactory;
         private static GarageManager instance = null;
         //map between license plate id to their lot
         private Dictionary<string, Lot> occupiedLots ;
@@ -34,7 +33,6 @@ namespace ParkingGarageManagement.Logic
         /// </summary>
         private GarageManager()
         {
-            this.vehicleFactory = new VehicleFactory();
             enteringVehicles = new List<Vehicle>();
             occupiedLots = new Dictionary<string, Lot>();
             ticketTypes = new Dictionary<TicketRank, TicketType>();

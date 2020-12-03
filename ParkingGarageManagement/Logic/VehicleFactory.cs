@@ -17,7 +17,7 @@ namespace ParkingGarageManagement.Logic
         /// <param name="height"></param>
         /// <param name="length"></param>
         /// <returns> a vehicle according to its data</returns>
-        public Vehicle GetVehicle(string vehicleType, string licensePlate, int width,int height,
+        public static Vehicle GetVehicle(string vehicleType, string licensePlate, int width,int height,
          int length)
         {
             Vehicle vehicle=null;

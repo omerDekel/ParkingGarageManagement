@@ -11,40 +11,44 @@ using ParkingGarageManagement.Models;
 using ParkingGarageManagement.Logic;
 
 namespace ParkingGarageManagement.Controllers
-{    
+{
+    //[Produces("application/json")]
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class GarageController : ControllerBase
     {
-        const string errorMessage = "Error!";
-        private VehicleFactory vehicleFactory;
         private GarageManager garage;
 
         private void Init()
         {
-            vehicleFactory = new VehicleFactory();
             garage = GarageManager.Instance;
         }
         public GarageController()
         {
+            
             Init();
         }
-
+        /// <summary>
+        /// /
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
-        [Route("/checkin")]
+        [Route("checkin")]
         public string CheckIn([FromBody] CheckInInput input)
         {
-            if (!input.InputisValid())
+            /*if (!input.InputisValid())
             {
                 return errorMessage;
-            }
-            Vehicle vehicle = vehicleFactory.GetVehicle(input.VehicleType, input.LicensePlateID, int.Parse(input.Width)
+            }*/
+            Vehicle vehicle = VehicleFactory.GetVehicle(input.VehicleType, input.LicensePlateID, int.Parse(input.Width)
                , int.Parse(input.Height), int.Parse(input.Length));
             //validate the rank and vehicle type
             bool rankIsValid = Enum.TryParse(input.TicketType, out TicketRank rank);
             if (vehicle == null || !rankIsValid)
             {
-                return errorMessage;
+                //return System.Text.Json.JsonSerializer.Serialize(BadRequest());
+                return ReturnBadRequest("Invalid Input");
             }
             User user = new User(input.Name, input.Phone, input.LicensePlateID);
             vehicle.DriverDetails = user;
@@ -52,24 +56,21 @@ namespace ParkingGarageManagement.Controllers
             return System.Text.Json.JsonSerializer.Serialize(ticketInfo);
         }
         [HttpPost]
-        [Route("/checkout/{LicensePlateID}")]
-        public string CheckOut(string LicensePlateID)
+        [Route("checkout")]
+        public bool CheckOut([FromBody]CheckoutInput input)
         {
-            if (garage.CheckOut(LicensePlateID))
-            {
-                return "Check out succeed";
-            }
-            else
-            {
-                return "Check Out failed.";
-            }
+            return (garage.CheckOut(input.LicensePlateID));
         }
         [HttpGet]
-        [Route("/getgaragestate")]
+        [Route("getgaragestate")]
         public string GetGarageState()
         {
             string lotsStr = System.Text.Json.JsonSerializer.Serialize(garage.Lots);
             return lotsStr;
+        }
+        private string ReturnBadRequest(string comment)
+        {
+            return System.Text.Json.JsonSerializer.Serialize(BadRequest(comment));
         }
     }
 }
