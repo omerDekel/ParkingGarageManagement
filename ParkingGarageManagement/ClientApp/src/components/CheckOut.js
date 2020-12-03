@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, Label, Input } from 'reactstrap';
 import { baseUrl } from '../services/api';
 
 export class CheckOut extends Component {
@@ -8,7 +8,7 @@ export class CheckOut extends Component {
     super(props);
       this.state = { licensePlateId: '' };
     }
-    //change state handler function
+    //changing input handler function
     myChangeHandler = (event) => {
         let nam = event.target.name;
         let val = event.target.value;
@@ -35,7 +35,7 @@ export class CheckOut extends Component {
 
         // send POST request
         fetch(url, options).then(res => res.json()).then(res => {           
-            if (res == true) {
+            if (res === true) {
                 alert("Thank you.Goodbye!")
             } else {
                 alert("Check out failed.")

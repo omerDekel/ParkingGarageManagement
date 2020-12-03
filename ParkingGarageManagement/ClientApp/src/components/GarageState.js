@@ -3,8 +3,6 @@ import { baseUrl } from './../services/api';
 import './GarageState.css';
 
 export class GarageState extends Component {
-  //static displayName = FetchData.name;
-
   constructor(props) {
     super(props);
     this.state = { garage: []};

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { baseUrl } from '../services/api';
 
 export class CheckIn extends Component {
@@ -17,7 +17,7 @@ export class CheckIn extends Component {
 
         };
     }
-    //change state handler function
+    //changing input handler function
     myChangeHandler = (event) => {
         let nam = event.target.name;
         let val = event.target.value;
@@ -25,31 +25,31 @@ export class CheckIn extends Component {
     }
     // validate that all fields are filled
     checkValidation() {
-        if (this.state.username == "") {
+        if (this.state.username === "") {
             alert("Please provide a name");
             return false;
         }
-        if (this.state.licensePlateId == "") {
+        if (this.state.licensePlateId === "") {
             alert("Please provide a license plate id");
             return false;
         }
-        if (this.state.ticketType == "") {
+        if (this.state.ticketType === "") {
             alert("Please provide a ticket type");
             return false;
         }
-        if (this.state.vehicleType == "") {
+        if (this.state.vehicleType === "") {
             alert("Please provide a vehicle type");
             return false;
         }
-        if (this.state.vehicleWidth == "") {
+        if (this.state.vehicleWidth === "") {
             alert("Please provide a vehicle width");
             return false;
         }
-        if (this.state.vehicleLength == "") {
+        if (this.state.vehicleLength === "") {
             alert("Please provide a vehicle length");
             return false;
         }
-        if (this.state.vehicleHeight == "") {
+        if (this.state.vehicleHeight === "") {
             alert("Please provide a vehicle height");
             return false;
         }
@@ -87,11 +87,11 @@ export class CheckIn extends Component {
                 .then(res => res.json())
                 .then(res => {
                     //if ticket is suitable with vehicle's data
-                     if (res.TicketTypeIsSuitable == true) {
+                     if (res.TicketTypeIsSuitable === true) {
                         alert("The lot for the vehicle is: " + res.Lot);
                      }
                     //if ticket is not suitable with vehicle's data,we tell him which ticket is suitable
-                    else if (res.TicketTypeIsSuitable == false) {
+                    else if (res.TicketTypeIsSuitable === false) {
                         alert("The ticket type is not suitable with the vehicle, you may"
                             + " trade your ticket to: " + res.MatchingTicketRank + " you should add more " + res.DifferenceCost + "$");
                      } else {                        
