@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// motorcycle vehicle class
+    /// </summary>
     public class Motorcycle: Vehicle
     {
         /// <summary>

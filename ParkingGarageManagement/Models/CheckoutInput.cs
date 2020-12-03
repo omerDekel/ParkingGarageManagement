@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    ///this class holding the check in input fields.
+    /// </summary>
     public class CheckoutInput
     {
         [Required]

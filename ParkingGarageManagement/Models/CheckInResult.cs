@@ -5,17 +5,29 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// class representing the result of the checkIn
+    /// </summary>
     public class CheckInResult
     {
-        public CheckInResult(string ticketRank, int difference, bool ticketTypeIsValid,int lot,string vehicleType)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="ticketRank"></param>
+        /// <param name="difference"></param>
+        /// <param name="ticketTypeIsValid"></param>
+        /// <param name="lot"></param>
+        /// <param name="vehicleType"></param>
+        public CheckInResult(string ticketRank, int difference, bool ticketTypeIsValid, int lot, string vehicleType)
         {
-           Lot = lot;
+            Lot = lot;
             MatchingTicketRank = ticketRank;
             DifferenceCost = difference;
             TicketTypeIsSuitable = ticketTypeIsValid;
             VehicleType = vehicleType;
 
         }
+        //the type of the vehicle
         public string VehicleType { get; set; }
         //the lot the vehicle parked in
         public int Lot { get; set; }

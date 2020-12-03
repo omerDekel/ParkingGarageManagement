@@ -5,8 +5,17 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// details about the user .
+    /// </summary>
     public class User
     {
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="licensceIdPlate"></param>
         public User(string name, string phone, string licensceIdPlate)
         {
             Name = name;

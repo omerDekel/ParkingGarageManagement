@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// restricted ticket type with time limit, and allowed dimensions.
+    /// </summary>
     public class RestrictedTicket : TicketType
     {
-        private int allowedMaxHight;
-        private int alloweMaxWidth;
-        private int allowedMaxLength;
-        private int timeLimit;
-
         public RestrictedTicket(int minLotRange, int maxLotRange, int price, TicketRank rank,int allowedMaxHight
             , int alloweMaxWidth, int allowedMaxLength, int timeLimit): base(minLotRange,maxLotRange,price,rank)
         {
@@ -21,13 +19,17 @@ namespace ParkingGarageManagement.Models
             AllowedMaxLength = allowedMaxLength;
             TimeLimit = timeLimit;
         }
-
-        public int AllowedMaxHight { get => allowedMaxHight; set => allowedMaxHight = value; }
-        public int AlloweMaxWidth { get => alloweMaxWidth; set => alloweMaxWidth = value; }
-        public int AllowedMaxLength { get => allowedMaxLength; set => allowedMaxLength = value; }
-        public int TimeLimit { get => timeLimit; set => timeLimit = value; }
-
-        public override bool ticketValidate(Vehicle vehicle)
+        //properties.
+        public int AllowedMaxHight { get; set; }
+        public int AlloweMaxWidth { get; set; }
+        public int AllowedMaxLength { get; set; }
+        public int TimeLimit { get; set; }
+        /// <summary>
+        /// validate the vehicles according to the allowed dimensions.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
+        public override bool IsVehicleSuitable(Vehicle vehicle)
         {
             if(vehicle.Width>AlloweMaxWidth || vehicle.Height > AllowedMaxHight 
                 || vehicle.Length > AllowedMaxLength)

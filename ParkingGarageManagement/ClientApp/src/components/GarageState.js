@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { baseUrl } from './../services/api';
-import './StyleSheet.css';
+import './GarageState.css';
 
 export class GarageState extends Component {
   //static displayName = FetchData.name;
@@ -11,6 +11,7 @@ export class GarageState extends Component {
     }
 
     componentDidMount() {
+        //send get request
         fetch(baseUrl + 'garage/getgaragestate')
             .then(res =>  res.json() )
             .then(res => this.setState({ garage: res }) );

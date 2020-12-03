@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// abstract class representing ticket type
+    /// </summary>
     public abstract class TicketType
     {
-        private TicketRank rank;
-        private int minLotRange;
-        private int maxLotRange;
-        /*private int allowedMaxHight;
-        private int alloweMaxWidth;
-        private int allowedMaxLength;*/
-        private int price;
-
+        /// <summary>
+        /// constructor.
+        /// </summary>
+        /// <param name="minLotRange"></param>
+        /// <param name="maxLotRange"></param>
+        /// <param name="price"></param>
+        /// <param name="rank"></param>
         protected TicketType(int minLotRange, int maxLotRange, int price, TicketRank rank)
         {
             Classes = new HashSet<VehicleClass>();
@@ -23,19 +25,29 @@ namespace ParkingGarageManagement.Models
             Price = price;
             Rank = rank;
         }
-
-        public int MinLotRange { get => minLotRange; set => minLotRange = value; }
-        public int MaxLotRange { get => maxLotRange; set => maxLotRange = value; }
-        public int Price { get => price; set => price = value; }
-        public TicketRank Rank { get => rank; set => rank = value; }
+        // the starting lot number of the ticket's range
+        public int MinLotRange { get; set; }
+        //the ending lot number of the ticket's range
+        public int MaxLotRange { get; set; }
+        // the price of the ticket
+        public int Price { get; set; }
+        //the type of the ticket
+        public TicketRank Rank { get; set; }
+        //allowed vehicle classes to this ticket type 
         public HashSet<VehicleClass> Classes { get; set; }
+        /// <summary>
+        /// adding allowed vehicle class.
+        /// </summary>
+        /// <param name="vehicleClass"></param>
         public void AddClass(VehicleClass vehicleClass)
         {
             Classes.Add(vehicleClass);
         }
-        /*public int AllowedMaxHight { get => allowedMaxHight; set => allowedMaxHight = value; }
-public int AlloweMaxWidth { get => alloweMaxWidth; set => alloweMaxWidth = value; }
-public int AllowedMaxLength { get => allowedMaxLength; set => allowedMaxLength = value; }*/
-        public abstract bool ticketValidate(Vehicle vehicle);
+        /// <summary>
+        /// validate if the vehicle is suitable to this ticket type.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns>true if the vehicle is suitable to the ticket, else false</returns>
+        public abstract bool IsVehicleSuitable(Vehicle vehicle);
     }
 }

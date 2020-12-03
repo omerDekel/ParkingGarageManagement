@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Logic
 {
+    /// <summary>
+    /// Vehicle factory. Using factory design pattern.
+    /// </summary>
     public class VehicleFactory
     {
         /// <summary>
-        /// Creating a vehicle according to its data
+        /// Creating a vehicle object according to the input.
         /// </summary>
         /// <param name="vehicleType"></param>
         /// <param name="licensePlate"></param>

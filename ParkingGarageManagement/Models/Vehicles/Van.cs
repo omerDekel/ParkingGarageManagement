@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// vsn vehicle class
+    /// </summary>
     public class Van: Vehicle
     {
         /// <summary>

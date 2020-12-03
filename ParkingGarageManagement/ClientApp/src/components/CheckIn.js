@@ -22,6 +22,7 @@ export class CheckIn extends Component {
         let val = event.target.value;
         this.setState({ [nam]: val });
     }
+    // validate that all fields are filled
     checkValidation() {
         if (this.state.username == "") {
             alert("Please provide a name");
@@ -60,7 +61,7 @@ export class CheckIn extends Component {
             const url = baseUrl+'garage/checkin';
 
             // post body data 
-            const user = {
+            const userInput = {
                 Name: this.state.username,
                 LicensePlateID: this.state.licensePlateId,
                 Phone: this.state.phone,
@@ -74,7 +75,7 @@ export class CheckIn extends Component {
             // request options
             const options = {
                 method: 'POST',
-                body: JSON.stringify(user),
+                body: JSON.stringify(userInput),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -84,7 +85,7 @@ export class CheckIn extends Component {
             fetch(url, options)           
                 .then(res => res.json())
                 .then(res => {
-                    debugger
+               //if post request failed
                     if (res.StatusCode == 400) {
                         alert(res.Value);
                     }else if (res.TicketTypeIsSuitable == true) {
@@ -97,8 +98,6 @@ export class CheckIn extends Component {
                 });
 
         }
-        //alert('username: ' + this.state.username);
-
     }
 
     render() {
@@ -106,7 +105,8 @@ export class CheckIn extends Component {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
-                    <h1>Hello</h1>
+                    <h1>Check In</h1>
+                    <h5>Please fill this out.</h5>
                     <Label>Name:</Label>
                     <Input
                         type='text'

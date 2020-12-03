@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// crossover vehicle class
+    /// </summary>
     public class Crossover: Vehicle
     {
         /// <summary>

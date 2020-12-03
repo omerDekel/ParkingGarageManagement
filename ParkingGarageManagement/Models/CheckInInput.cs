@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// this class holding the check in input fields.
+    /// </summary>
     public class CheckInInput
     {
         [Required]
@@ -24,10 +27,5 @@ namespace ParkingGarageManagement.Models
         public string Width { get; set; }
         [Required]
         public string Length { get; set; }
-        public bool InputisValid()
-        {
-            return !((Name == "") || (LicensePlateID == "") || (TicketType == "") || (VehicleType == "") || (Width == "")
-                || (Height == "") || (Length == ""));
-        }
     }
 }

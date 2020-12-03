@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ParkingGarageManagement.Models
 {
+    /// <summary>
+    /// enum representing the rank of each ticket type.
+    /// </summary>
     public enum TicketRank
     {
         Undefined = -1,
