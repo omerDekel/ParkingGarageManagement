@@ -7,12 +7,14 @@ export class CheckOut extends Component {
   constructor(props) {
     super(props);
       this.state = { licensePlateId: '' };
-  }
+    }
+    //change state handler function
     myChangeHandler = (event) => {
         let nam = event.target.name;
         let val = event.target.value;
         this.setState({ [nam]: val });
     }
+    // handle submit function
     handleSubmit = () => {
         const url = baseUrl+'garage/checkout/';
 

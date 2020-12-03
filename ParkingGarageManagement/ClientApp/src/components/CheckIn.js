@@ -17,6 +17,7 @@ export class CheckIn extends Component {
 
         };
     }
+    //change state handler function
     myChangeHandler = (event) => {
         let nam = event.target.name;
         let val = event.target.value;

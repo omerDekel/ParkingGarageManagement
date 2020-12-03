@@ -18,7 +18,8 @@ export class GarageState extends Component {
     }
 
     render() {
-        const garage = this.state.garage.map((lot,index) => {
+        const garage = this.state.garage.map((lot, index) => {
+            //if the lot is occupied
             if (lot.LicensePlate !== "") {
                 return (<div key={index} className="lot occupiedLot">
                     <div>{lot.LotNumber}</div>
