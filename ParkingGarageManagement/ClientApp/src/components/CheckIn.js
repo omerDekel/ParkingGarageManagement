@@ -86,15 +86,16 @@ export class CheckIn extends Component {
             fetch(url, options)           
                 .then(res => res.json())
                 .then(res => {
-               //if post request failed
-                    if (res.StatusCode == 400) {
-                        alert(res.Value);
-                    }else if (res.TicketTypeIsSuitable == true) {
+                    //if ticket is suitable with vehicle's data
+                     if (res.TicketTypeIsSuitable == true) {
                         alert("The lot for the vehicle is: " + res.Lot);
-                    }
+                     }
+                    //if ticket is not suitable with vehicle's data,we tell him which ticket is suitable
                     else if (res.TicketTypeIsSuitable == false) {
                         alert("The ticket type is not suitable with the vehicle, you may"
                             + " trade your ticket to: " + res.MatchingTicketRank + " you should add more " + res.DifferenceCost + "$");
+                     } else {                        
+                        alert(res.Value);
                     }
                 });
 
