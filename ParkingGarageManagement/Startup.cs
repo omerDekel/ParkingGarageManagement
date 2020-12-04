@@ -29,7 +29,9 @@ namespace ParkingGarageManagement
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("https://localhost:3000/");
+                                      builder.WithOrigins("https://localhost:3000/",
+                                          "https://localhost:44354/"
+                                          );
                                   });
             });
 

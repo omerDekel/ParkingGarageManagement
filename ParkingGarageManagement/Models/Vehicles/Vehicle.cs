@@ -16,6 +16,6 @@ namespace ParkingGarageManagement.Models
         public int Width { get; set; }
         public int Height { get; set; }
         public int Length { get; set; }
-        public User DriverDetails { get; set; }
+        public Driver DriverDetails { get; set; }
     }
 }

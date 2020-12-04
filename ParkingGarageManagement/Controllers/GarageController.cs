@@ -19,7 +19,7 @@ namespace ParkingGarageManagement.Controllers
     [ApiController]
     public class GarageController : ControllerBase
     {
-        private GarageManager garage;
+        private IGarageManager garage;
         /// <summary>
         /// initialize method
         /// </summary>
@@ -48,15 +48,14 @@ namespace ParkingGarageManagement.Controllers
           //getting the vehicle object according to its input
             Vehicle vehicle = VehicleFactory.GetVehicle(input.VehicleType, input.LicensePlateID, int.Parse(input.Width)
                , int.Parse(input.Height), int.Parse(input.Length));
-            //validate the rank and vehicle type
             bool rankIsValid = Enum.TryParse(input.TicketType, out TicketRank rank);
+            //validate the rank and vehicle type
             if (vehicle == null || !rankIsValid)
             {
                 return ReturnBadRequest("Invalid Input");
             }
-            User user = new User(input.Name, input.Phone, input.LicensePlateID);
-            vehicle.DriverDetails = user;
-            CheckInResult ticketInfo = garage.CheckIn(vehicle,rank);
+            Driver driver = new Driver(input.Name, input.Phone, input.LicensePlateID);
+            CheckInResult ticketInfo = garage.CheckIn(vehicle,rank,driver);
             return System.Text.Json.JsonSerializer.Serialize(ticketInfo);
         }
         /// <summary>

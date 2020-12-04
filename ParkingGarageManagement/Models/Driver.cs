@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 namespace ParkingGarageManagement.Models
 {
     /// <summary>
-    /// details about the user .
+    /// details about the driver .
     /// </summary>
-    public class User
+    public class Driver
     {
         /// <summary>
         /// constructor
@@ -16,7 +16,7 @@ namespace ParkingGarageManagement.Models
         /// <param name="name"></param>
         /// <param name="phone"></param>
         /// <param name="licensceIdPlate"></param>
-        public User(string name, string phone, string licensceIdPlate)
+        public Driver(string name, string phone, string licensceIdPlate)
         {
             Name = name;
             Phone = phone;

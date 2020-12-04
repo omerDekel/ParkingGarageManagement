@@ -10,10 +10,11 @@ namespace ParkingGarageManagement.Logic
     /// This class is resposible of managing the parking garage.
     /// Using singleton design patterrn.
     /// </summary>
-    public sealed class GarageManager
+    public sealed class GarageManager:IGarageManager
     {
         private static GarageManager instance = null;
-        //array of entring vehicles 
+        public Lot[] Lots { get ; set ; }
+        //Array of entering vehicles, to store their data in memory
         public List<Vehicle> EnteringVehicles { get; set; }
         //map between license plate id to its lot
         public Dictionary<string, Lot> OccupiedLots { get; set; }
@@ -31,6 +32,8 @@ namespace ParkingGarageManagement.Logic
 
             }
         }
+
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -49,7 +52,6 @@ namespace ParkingGarageManagement.Logic
             TicketTypes[TicketRank.Regular] = new RestrictedTicket(31, 60, 50, TicketRank.Regular, 2000, 2000, 3000, 24);
             AddAllowedClassesToTickets();
         }
-        public Lot[] Lots { get; set; }
         /// <summary>
         /// Adding the classes of vehicles that allowed for each ticket types
         /// </summary>
@@ -71,9 +73,10 @@ namespace ParkingGarageManagement.Logic
         /// <param name="vehicle"> vehicle which wants to enter</param>
         /// <param name="rank">rank of the ticket type</param>
         /// <returns>information about the check in result</returns>
-        public CheckInResult CheckIn(Vehicle vehicle, TicketRank rank)
+        public CheckInResult CheckIn(Vehicle vehicle, TicketRank rank, Driver driver)
         {
             int lot = -1;
+            vehicle.DriverDetails = driver;
             EnteringVehicles.Add(vehicle);
             TicketType ticketType = TicketTypes[rank];
             //if the ticket type is suitable to the vehicle's data.
