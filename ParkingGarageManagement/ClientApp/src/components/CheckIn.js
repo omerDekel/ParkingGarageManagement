@@ -87,8 +87,13 @@ export class CheckIn extends Component {
                 .then(res => res.json())
                 .then(res => {
                     //if ticket is suitable with vehicle's data
-                     if (res.TicketTypeIsSuitable === true) {
-                        alert("The lot for the vehicle is: " + res.Lot);
+                    if (res.TicketTypeIsSuitable === true) {
+                        if (res.Lot !== -1) {
+                            alert("The lot for the vehicle is: " + res.Lot);
+                         //if lot number is -1 ,so there are no free lots for this ticket type
+                        } else {
+                            alert("This ticket type is sold out");
+                        }
                      }
                     //if ticket is not suitable with vehicle's data,we tell him which ticket is suitable
                     else if (res.TicketTypeIsSuitable === false) {
