@@ -67,7 +67,7 @@ export class CheckIn extends Component {
                 LicensePlateID: this.state.licensePlateId,
                 Phone: this.state.phone,
                 TicketType: this.state.ticketType,
-                VehicleType: this.state.vehicleType,
+                VehicleType: this.state.vehicleType.toLowerCase(),
                 Height: this.state.vehicleHeight,
                 Width: this.state.vehicleWidth,
                 Length: this.state.vehicleLength

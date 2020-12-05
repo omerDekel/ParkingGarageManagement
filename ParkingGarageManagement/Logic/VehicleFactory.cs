@@ -26,22 +26,22 @@ namespace ParkingGarageManagement.Logic
             Vehicle vehicle=null;
             switch (vehicleType)
             {
-                case ("Motorcycle"):
+                case ("motorcycle"):
                     vehicle = new Motorcycle(licensePlate,width,height,length);
                     break;
-                case ("Private"):
+                case ("private"):
                     vehicle = new PrivateVehicle(licensePlate, width, height, length);
                     break;
-                case ("Crossover"):
+                case ("crossover"):
                     vehicle = new Crossover(licensePlate, width, height, length);
                     break;
-                case ("Van"):
+                case ("van"):
                     vehicle = new Van(licensePlate, width, height, length);
                     break;
-                case ("Truck"):
+                case ("truck"):
                     vehicle = new Truck(licensePlate, width, height, length);
                     break;
-                case ("SUV"):
+                case ("suv"):
                     vehicle = new SUV(licensePlate, width, height, length);
                     break;
             }
