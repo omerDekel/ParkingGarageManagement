@@ -54,7 +54,7 @@ namespace ParkingGarageManagement.Controllers
             {
                 return ReturnBadRequest("Invalid Input");
             }
-            Driver driver = new Driver(input.Name, input.Phone, input.LicensePlateID);
+            Driver driver = new Driver(input.Name, input.Phone);
             CheckInResult ticketInfo = garage.CheckIn(vehicle,rank,driver);
             return System.Text.Json.JsonSerializer.Serialize(ticketInfo);
         }
