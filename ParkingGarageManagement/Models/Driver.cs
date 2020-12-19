@@ -15,16 +15,13 @@ namespace ParkingGarageManagement.Models
         /// </summary>
         /// <param name="name"></param>
         /// <param name="phone"></param>
-        /// <param name="licensceIdPlate"></param>
-        public Driver(string name, string phone, string licensceIdPlate)
+        public Driver(string name, string phone)
         {
             Name = name;
             Phone = phone;
-            LicensceIdPlate = licensceIdPlate;
         }
 
         public string Name { get; set; }
         public string Phone { get; set; }
-        public string LicensceIdPlate { get; set; }
     }
 }
